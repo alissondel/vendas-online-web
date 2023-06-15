@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import Button from '../../../shared/components/buttons/button/Button';
 import SVGLogo from '../../../shared/components/icons/SVGLogo';
 import Input from '../../../shared/components/inputs/input/input';
-import usePost from '../../../shared/hooks/usePosts';
+import useLogin from '../../../shared/hooks/useLogin';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -11,7 +11,6 @@ import {
   LimitedContainer,
   TitleLogin,
 } from '../styles/loginScreen.styles';
-import { AuthType } from '../types/AuthType';
 
 interface FormLogin {
   email: string;
@@ -19,7 +18,7 @@ interface FormLogin {
 }
 
 export default function LoginScreen() {
-  const { postData, loading } = usePost();
+  const { loginData, loading } = useLogin();
 
   const [formValues, setFormValues] = useState<FormLogin>({
     email: '',
@@ -34,7 +33,7 @@ export default function LoginScreen() {
   }
 
   function handleSubmit() {
-    postData<AuthType>('http://localhost:3333/auth', {
+    loginData({
       email: formValues.email,
       password: formValues.password,
     });
